@@ -8,7 +8,7 @@ import os
 import time
 from typing import List, Optional
 
-DB_PATH = os.path.join(os.path.dirname(__file__), "critiqai.db")
+DB_PATH = os.getenv("CRITIQAI_DB_PATH", os.path.join(os.path.dirname(__file__), "critiqai.db"))
 
 
 def _conn():

@@ -81,6 +81,29 @@ Default URLs:
 - Frontend: http://localhost:5173
 - Backend: http://localhost:8000
 
+## Single-Server Deployment
+
+This repository includes a one-server Docker deployment that runs frontend and backend together.
+
+Quick start:
+
+```bash
+docker compose up -d --build
+```
+
+Open:
+
+- App: http://localhost:8080
+- API docs: http://localhost:8080/docs
+
+Windows shortcut:
+
+```bat
+deploy.bat
+```
+
+Full guide: DEPLOYMENT.md
+
 ## Testing and Validation
 
 Sample and verification scripts are available in the repository root and in test_files.
