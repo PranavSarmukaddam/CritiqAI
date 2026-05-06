@@ -1,5 +1,6 @@
-﻿import { useLocation, useNavigate, Link } from 'react-router-dom'
+import { useLocation, useNavigate, Link } from 'react-router-dom'
 import { useEffect, useState } from 'react'
+import { API_BASE } from '../config'
 import {
     BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell,
     LineChart, Line, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar,
@@ -176,7 +177,7 @@ export default function Report() {
     const exportReport = async () => {
         if (!result?.audit_id) return
         try {
-            const res = await fetch(`/audits/${result.audit_id}/pdf`)
+            const res = await fetch(`${API_BASE}/audits/${result.audit_id}/pdf`)
             if (!res.ok) throw new Error('PDF export failed')
             
             const blob = await res.blob()

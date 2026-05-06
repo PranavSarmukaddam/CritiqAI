@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { API_BASE } from '../config'
 
 const STAGES = [
     { num: '01', label: 'Data Integrity & Distribution' },
@@ -36,7 +37,7 @@ export default function AuditProgress() {
         }
         setCurrentStage(-1)
         try {
-            const res = await fetch('/audit/demo', { method: 'POST' })
+            const res = await fetch(`${API_BASE}/audit/demo`, { method: 'POST' })
             if (!res.ok) throw new Error(`API error ${res.status}`)
             const data = await res.json()
             clearInterval(timer)

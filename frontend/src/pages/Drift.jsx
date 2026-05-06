@@ -1,4 +1,5 @@
 import { useState, useRef } from 'react'
+import { API_BASE } from '../config'
 import {
     BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell
 } from 'recharts'
@@ -61,7 +62,7 @@ export default function Drift() {
         form.append('reference_csv', refFile)
         form.append('current_csv', curFile)
         try {
-            const res = await fetch('/audit/drift', { method: 'POST', body: form })
+            const res = await fetch(`${API_BASE}/audit/drift`, { method: 'POST', body: form })
             const data = await res.json()
             if (!res.ok) throw new Error(data.detail || `Error ${res.status}`)
             setResult(data)

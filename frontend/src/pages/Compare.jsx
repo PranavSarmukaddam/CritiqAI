@@ -1,5 +1,6 @@
 import { useState, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { API_BASE } from '../config'
 
 const METRIC_LABELS = {
     accuracy: 'Accuracy', precision: 'Precision', recall: 'Recall',
@@ -65,7 +66,7 @@ export default function Compare() {
         form.append('model_file_a', modelA)
         form.append('model_file_b', modelB)
         try {
-            const res = await fetch('/audit/compare', { method: 'POST', body: form })
+            const res = await fetch(`${API_BASE}/audit/compare`, { method: 'POST', body: form })
             const data = await res.json()
             if (!res.ok) throw new Error(data.detail || `Error ${res.status}`)
             setResult(data)

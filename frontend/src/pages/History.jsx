@@ -1,5 +1,6 @@
-﻿import { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { API_BASE } from '../config'
 import {
     LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer
 } from 'recharts'
@@ -18,8 +19,8 @@ export default function History() {
 
     useEffect(() => {
         Promise.all([
-            fetch('/audits').then(r => r.json()),
-            fetch('/audits/trend').then(r => r.json()),
+            fetch(`${API_BASE}/audits`).then(r => r.json()),
+            fetch(`${API_BASE}/audits/trend`).then(r => r.json()),
         ]).then(([listData, trendData]) => {
             setAudits(listData.audits || [])
             setTotal(listData.total || 0)
@@ -30,7 +31,7 @@ export default function History() {
 
     const openAudit = async (id) => {
         try {
-            const res = await fetch(`/audits/${id}`)
+            const res = await fetch(`${API_BASE}/audits/${id}`)
             const result = await res.json()
             navigate('/report', { state: { result } })
         } catch (e) { console.error(e) }
@@ -40,7 +41,7 @@ export default function History() {
         e.stopPropagation()
         if (!confirm('Delete this audit?')) return
         try {
-            await fetch(`/audits/${id}`, { method: 'DELETE' })
+            await fetch(`${API_BASE}/audits/${id}`, { method: 'DELETE' })
             setAudits(prev => prev.filter(a => a.id !== id))
             setTotal(prev => prev - 1)
         } catch (e) { console.error(e) }

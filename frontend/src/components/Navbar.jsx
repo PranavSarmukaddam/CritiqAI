@@ -1,5 +1,6 @@
 import { Link, useLocation } from 'react-router-dom'
 import { useEffect, useState } from 'react'
+import { API_BASE } from '../config'
 
 const NAV_LINKS = [
     { path: '/',        label: 'Upload'  },
@@ -31,7 +32,7 @@ export default function Navbar() {
         let cancelled = false
         const check = async () => {
             try {
-                const res = await fetch('/audit/health', { signal: AbortSignal.timeout(3000) })
+                const res = await fetch(`${API_BASE}/audit/health`, { signal: AbortSignal.timeout(3000) })
                 if (!cancelled) setApiStatus(res.ok ? 'live' : 'down')
             } catch { if (!cancelled) setApiStatus('down') }
         }

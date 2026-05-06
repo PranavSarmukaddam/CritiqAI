@@ -1,6 +1,7 @@
 import { useState, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import AuditVisualizer from '../components/AuditVisualizer'
+import { API_BASE } from '../config'
 
 const PIPELINE = [
     { num: '01', label: 'Data Integrity',   desc: 'Missing values, duplicates, distribution analysis' },
@@ -85,7 +86,7 @@ export default function Upload() {
         form.append('csv_file',   csvFile)
         form.append('model_file', modelFile)
         try {
-            const res  = await fetch('/audit/upload', { method: 'POST', body: form })
+            const res  = await fetch(`${API_BASE}/audit/upload`, { method: 'POST', body: form })
             const data = await res.json()
             if (!res.ok) throw new Error(data.detail || `Server error ${res.status}`)
             navigate('/report', { state: { result: data } })
